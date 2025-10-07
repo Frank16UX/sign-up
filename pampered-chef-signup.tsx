@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Check, Eye, EyeOff, ArrowLeft, Loader2 } from 'lucide-react';
 
 // Mailcheck-like functionality
 const emailDomains = ['gmail.com', 'outlook.com', 'icloud.com', 'hotmail.com', 'yahoo.com', 'aol.com', 'live.com'];
 
-const suggestDomain = (email) => {
+const suggestDomain = (email: string): string | null => {
   const parts = email.split('@');
   if (parts.length !== 2) return null;
   
@@ -22,7 +22,7 @@ const suggestDomain = (email) => {
   return null;
 };
 
-const levenshteinDistance = (a, b) => {
+const levenshteinDistance = (a: string, b: string): number => {
   const matrix = [];
   for (let i = 0; i <= b.length; i++) {
     matrix[i] = [i];
@@ -46,7 +46,7 @@ const levenshteinDistance = (a, b) => {
   return matrix[b.length][a.length];
 };
 
-const getAutocompleteSuggestions = (input) => {
+const getAutocompleteSuggestions = (input: string): string[] => {
   const parts = input.split('@');
   if (parts.length !== 2) return [];
   
@@ -60,7 +60,7 @@ const SignUpFlow = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -70,7 +70,7 @@ const SignUpFlow = () => {
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
+  const [verificationCode, setVerificationCode] = useState<string[]>(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(3);
@@ -100,7 +100,7 @@ const SignUpFlow = () => {
     }
   }, [step, redirectCountdown]);
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setEmail(value);
     setEmailError('');
@@ -141,7 +141,7 @@ const SignUpFlow = () => {
     }
   };
 
-  const handlePhoneChange = (e) => {
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, '');
     setPhone(value);
     setPhoneError('');
@@ -192,7 +192,7 @@ const SignUpFlow = () => {
     setStep(4);
   };
 
-  const handleVerificationInput = (index, value) => {
+  const handleVerificationInput = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;
     
     const newCode = [...verificationCode];
@@ -222,7 +222,7 @@ const SignUpFlow = () => {
     }
   };
 
-  const formatPhoneDisplay = (phone) => {
+  const formatPhoneDisplay = (phone: string): string => {
     const cleaned = phone.replace(/\D/g, '');
     if (cleaned.length <= 3) return cleaned;
     if (cleaned.length <= 6) return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
