@@ -521,8 +521,7 @@ const SignUpFlow = () => {
           {step === 4 && (
             <div className="bg-white rounded-lg shadow-sm p-8">
 
-
-              <h1 className="text-2xl text-center mb-4 font-bold">
+              <h1 className="text-2xl text-center mb-3" style={{ fontFamily: 'Questa, Georgia, serif' }}>
                 Enter verification code
               </h1>
               
@@ -545,7 +544,10 @@ const SignUpFlow = () => {
                 <strong>{email}</strong>.
                 <button 
                   onClick={() => setStep(3)}
-                  className="text-gray-600 hover:underline font-normal"
+                  className="font-normal underline"
+                  style={{ color: '#2C7A87' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#1A5962')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#2C7A87')}
                 >
                   Change
                 </button>
@@ -635,16 +637,6 @@ const SignUpFlow = () => {
 
       {/* Footer */}
       <div className="bg-white border-t border-gray-200 py-6">
-        <div className="text-center mb-4">
-          <img 
-            src="https://www.pamperedchef.com/iceberg/images/Favicon.png" 
-            alt="Pampered Chef" 
-            className="mx-auto h-12 w-12"
-          />
-        </div>
-        <p className="text-center text-xs text-gray-600 mb-4">
-          A proud member of the Berkshire Hathaway Family of Companies.
-        </p>
         <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-600 px-4">
           <a href="#" className="hover:underline">Privacy Policy</a>
           <a href="#" className="hover:underline">California Supply Chain</a>
